@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:16 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 19:55:52 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/19 20:15:20 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ int	main(void)
 	init_game(&board);
 	init_ncurses();
 	srand(time(NULL));
-	for (int i = 0; i < 5; i++)
-		new_number(&board);
 	if (can_run_game(&board) == true)
 	{
 		init_board_wnd(&board);
+		new_number(&board);
+		new_number(&board);
 		while (1)
 		{
 			draw_board(&board);
@@ -75,6 +75,7 @@ int	main(void)
 					move_up(&board);
 				else if (ch == KEY_DOWN)
 					move_down(&board);
+				new_number(&board);
 				for (int y = 0; y < BOARD_SIZE; y++)
 				{
 					for (int x=0; x < BOARD_SIZE; x++)

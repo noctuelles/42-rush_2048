@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 19:15:19 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 19:22:32 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/19 20:14:34 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	merge_left(t_board *board)
 					{
 						board->tiles[y][x].value *= 2;
 						board->tiles[y][xi].value = 0;
+						board->free_tiles++;
 						break ;
 					}
 				}
@@ -79,6 +80,7 @@ static void	merge_right(t_board *board)
 					{
 						board->tiles[y][x].value *= 2;
 						board->tiles[y][xi].value = 0;
+						board->free_tiles++;
 						break ;
 					}
 				}
