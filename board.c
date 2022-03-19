@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 15:26:23 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 16:27:43 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/19 20:25:24 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,18 @@ void	delete_board_wnd(t_board *board)
 	delwin(board->wnd);
 }
 
-void	stall_mode(t_board *board)
+void	wipe_tiles(t_board *board)
+{
+	for (int y = 0; y < BOARD_SIZE; y++)
+	{
+		for (int x=0; x < BOARD_SIZE; x++)
+		{
+			wclear(board->tiles[y][x].wnd);
+		}
+	}
+}
+
+static void	stall_mode(t_board *board)
 {
 	int	ch;
 

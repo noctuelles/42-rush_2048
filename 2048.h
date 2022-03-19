@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 19:34:34 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/19 20:24:34 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <time.h>
 
 # define BOARD_SIZE 4
+# define KEY_ESC    27
 
 # define TERM_LINES_MIN 31
 # define TERM_ROWS_MIN  84 
@@ -65,5 +66,7 @@ void	move_right(t_board *board);
 void	move_left(t_board *board);
 void	move_up(t_board *board);
 void	move_down(t_board *board);
+
+void	wipe_tiles(t_board *board);
 
 #endif

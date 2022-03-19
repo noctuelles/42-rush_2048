@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:16 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 20:15:20 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/19 20:26:23 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	init_ncurses(void)
 	initscr();
 	noecho();
 	raw();
+	curs_set(0);
 	nonl();
 	cbreak();
 	keypad(stdscr, true);
@@ -49,9 +50,9 @@ int	main(void)
 	t_board	board;
 	int	ch;
 
+	srand(time(NULL));
 	init_game(&board);
 	init_ncurses();
-	srand(time(NULL));
 	if (can_run_game(&board) == true)
 	{
 		init_board_wnd(&board);
@@ -63,7 +64,7 @@ int	main(void)
 			ch = getch();
 			if (ch == KEY_RESIZE)
 				getmaxyx(stdscr, board.term_nlines, board.term_nrows);
-			else if (ch == 27)
+			else if (ch == KEY_ESC)
 				break ;
 			else
 			{
@@ -76,13 +77,7 @@ int	main(void)
 				else if (ch == KEY_DOWN)
 					move_down(&board);
 				new_number(&board);
-				for (int y = 0; y < BOARD_SIZE; y++)
-				{
-					for (int x=0; x < BOARD_SIZE; x++)
-					{
-						wclear(board.tiles[y][x].wnd);
-					}
-				}
+				wipe_tiles(&board);
 			}
 		}
 	}
