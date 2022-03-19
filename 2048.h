@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 14:30:21 by gusalle          ###   ########.fr       */
+/*   Updated: 2022/03/19 15:03:12 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define H_2048
 
 # include <ncurses.h>
+# include <stdlib.h>
+# include <time.h>
 
 # define BOARD_SIZE 4
 
@@ -43,5 +45,6 @@ typedef struct	s_board
 
 unsigned int	check_win(t_board *board);
 unsigned int	check_lose(t_board *board);
+void			new_number(t_board *board);
 
 #endif
