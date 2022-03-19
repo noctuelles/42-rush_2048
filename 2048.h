@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 15:20:26 by gusalle          ###   ########.fr       */
+/*   Updated: 2022/03/19 16:05:54 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ typedef struct	s_board
 unsigned int	check_win(t_board *board);
 unsigned int	check_lose(t_board *board);
 void			new_number(t_board *board);
+void			move_and_merge(t_board *board, char *input);
 
 #endif
