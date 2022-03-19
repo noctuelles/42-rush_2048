@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 15:34:42 by gusalle           #+#    #+#             */
-/*   Updated: 2022/03/19 19:05:52 by gusalle          ###   ########.fr       */
+/*   Updated: 2022/03/19 19:25:33 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	move_right(t_board *board)
 
 	for (int y=0; y < BOARD_SIZE; y++)
    	{
-		for (int x = BOARD_SIZE - 1; 0 < x; )
+		for (int x = BOARD_SIZE - 1; 0 <= x; )
 		{
 			value = board->tiles[y][x].value;
 			if (value == 0)
@@ -133,7 +133,7 @@ static void	move_down(t_board *board)
 	
 	for (int x=0; x < BOARD_SIZE; x++)
    	{
-		for (int y = BOARD_SIZE - 1; 0 < y; )
+		for (int y = BOARD_SIZE - 1; 0 <= y; )
 		{
 			value = board->tiles[y][x].value;
 			if (value == 0)
