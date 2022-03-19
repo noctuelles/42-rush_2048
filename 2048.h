@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 19:07:44 by gusalle          ###   ########.fr       */
+/*   Updated: 2022/03/19 19:21:47 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define H_2048
 
 # include <ncurses.h>
+# include <stdlib.h>
+# include <time.h>
 
 # define BOARD_SIZE 4
 
@@ -46,6 +48,8 @@ typedef struct	s_board
 	t_tile			tiles[BOARD_SIZE][BOARD_SIZE];
 	size_t			term_nlines;
 	size_t			term_nrows;
+	bool			re_draw;
+	unsigned int	free_tiles;
 }				t_board;
 
 
@@ -54,5 +58,10 @@ void	delete_board_wnd(t_board *board);
 void	draw_board(t_board *board);
 unsigned int	check_win(t_board *board);
 unsigned int	check_lose(t_board *board);
+
+unsigned int	check_win(t_board *board);
+unsigned int	check_lose(t_board *board);
+void			new_number(t_board *board);
+void			move_and_merge(t_board *board, char *input);
 
 #endif
