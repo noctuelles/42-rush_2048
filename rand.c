@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 14:39:25 by gusalle           #+#    #+#             */
-/*   Updated: 2022/03/19 15:20:47 by gusalle          ###   ########.fr       */
+/*   Updated: 2022/03/19 15:26:14 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	new_number(t_board *board) {
 				r--;
 			if (r == -1) {
 				board->tiles[y][x].value = random_number();
+				board->free_tiles--;
 				return ;
 			}
 		}
