@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 13:55:46 by gusalle          ###   ########.fr       */
+/*   Updated: 2022/03/19 14:30:21 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,8 @@ typedef struct	s_board
 	size_t			term_nrows;
 	bool			re_draw;
 }				t_board;
+
+unsigned int	check_win(t_board *board);
+unsigned int	check_lose(t_board *board);
 
 #endif
