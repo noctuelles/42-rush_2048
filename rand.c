@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 14:39:25 by gusalle           #+#    #+#             */
-/*   Updated: 2022/03/19 15:03:30 by gusalle          ###   ########.fr       */
+/*   Updated: 2022/03/19 15:20:47 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	new_number(t_board *board) {
 	r = r / (RAND_MAX / board->free_tiles);
 	for (int y=0; y < BOARD_SIZE; y++) {
 		for (int x=0; x < BOARD_SIZE; x++) {
-			if (board->tiles[x][y].value == 0)
+			if (board->tiles[y][x].value == 0)
 				r--;
 			if (r == -1) {
-				board->tiles[x][y].value = random_number();
+				board->tiles[y][x].value = random_number();
 				return ;
 			}
 		}
