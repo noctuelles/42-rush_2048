@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:16 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 20:56:24 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/19 23:25:47 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <string.h>
 #include <ncurses.h>
 
-bool	can_run_game(t_board *board)
+static bool	can_run_game(t_board *board)
 {
 	getmaxyx(stdscr, board->term_nlines, board->term_nrows);
 	if (board->term_nlines < TERM_LINES_MIN || board->term_nrows < TERM_ROWS_MIN)
@@ -27,24 +27,29 @@ bool	can_run_game(t_board *board)
 	return (true);
 }
 
-void	init_ncurses(void)
+static bool	init_ncurses(void)
 {
-	initscr();
+	if (initscr() == NULL)
+		return (false);
 	noecho();
 	raw();
 	curs_set(0);
 	nonl();
 	cbreak();
 	keypad(stdscr, true);
+	return (true);
 }
 
-void	init_game(t_board *board)
+static void	init_game(t_board *board)
 {
-	memset(board, 0, sizeof(t_board));
+	if (WIN_VALUE < 2 || is_power_of_two(WIN_VALUE) == false)
+		board->win_value = DEFAULT_WIN_VALUE;
+	else
+		board->win_value = WIN_VALUE;
 	board->free_tiles = BOARD_SIZE * BOARD_SIZE;
 }
 
-bool	can_continue(t_board *board)
+static bool	can_continue(t_board *board)
 {
 	if (board->won == false && check_win(board) == true)
 	{
@@ -57,18 +62,22 @@ bool	can_continue(t_board *board)
 		}
 	}
 	else if (check_lose(board) == true)
+	{
+		display_loosing_msg(board);
 		return (false);
+	}
 	return (true);
 }
 
 int	main(void)
 {
-	t_board	board;
-	int	ch;
+	t_board			board = {0};
+	int				ch;
 
 	srand(time(NULL));
 	init_game(&board);
-	init_ncurses();
+	if (init_ncurses() == false)
+		return (1);
 	if (can_run_game(&board) == true)
 	{
 		init_board_wnd(&board);

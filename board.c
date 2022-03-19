@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 15:26:23 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 20:59:33 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/19 23:29:26 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,14 @@ void	draw_board(t_board *board)
 			wrefresh(board->tiles[y][x].wnd);
 		}
 	}
+}
+
+void	display_loosing_msg(t_board *board)
+{
+	int	ch;
+
+	clear();
+	mvwaddstr(stdscr, 0, 0, "You loose ! You had no possible move.");
+	mvwaddstr(stdscr, 1, 0, STR_PRESS_KEY);
+	ch = getch();
 }

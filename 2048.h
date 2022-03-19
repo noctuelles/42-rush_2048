@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 20:58:47 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/19 23:29:51 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,11 @@
 # define STR_PLEASE_RESIZE  "Please resize your terminal to resume game."
 # define STR_PRESS_KEY      "Press any key to exit..."
 
+# define DEFAULT_WIN_VALUE 2048
+
 enum	e_const
 {
-	WIN_VALUE = 8 
+	WIN_VALUE = 2048 
 };
 
 typedef struct	s_tile
@@ -51,6 +53,7 @@ typedef struct	s_board
 	size_t			term_nrows;
 	unsigned int	free_tiles;
 	bool			won;
+	size_t			win_value;
 }				t_board;
 
 
@@ -70,5 +73,9 @@ void	move_down(t_board *board);
 
 void	wipe_tiles(t_board *board);
 
+void	display_loosing_msg(t_board *board);
 bool	display_winning_msg(t_board *board);
+
+bool	is_power_of_two(int i);
+
 #endif
