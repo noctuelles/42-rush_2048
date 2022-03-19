@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 15:40:29 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/19 16:10:39 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@
 # define STR_PLEASE_RESIZE  "Please resize your terminal to resume game."
 # define STR_PRESS_KEY      "Press any key to exit..."
 
+enum	e_const
+{
+	WIN_VALUE = 2048
+};
 
 typedef struct	s_tile
 {
