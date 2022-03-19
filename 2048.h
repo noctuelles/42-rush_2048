@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 12:03:20 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/19 13:55:46 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 # include <ncurses.h>
 
 # define BOARD_SIZE 4
+
+enum	e_const
+{
+	WIN_VALUE = 2048
+};
 
 typedef struct	s_tile
 {
