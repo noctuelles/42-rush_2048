@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 16:10:39 by gusalle          ###   ########.fr       */
+/*   Updated: 2022/03/19 16:15:56 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,7 @@ typedef struct	s_board
 void	init_board_wnd(t_board *board);
 void	delete_board_wnd(t_board *board);
 void	draw_board(t_board *board);
+unsigned int	check_win(t_board *board);
+unsigned int	check_lose(t_board *board);
 
 #endif
