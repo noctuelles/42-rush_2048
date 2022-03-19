@@ -6,14 +6,14 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 14:39:25 by gusalle           #+#    #+#             */
-/*   Updated: 2022/03/19 16:28:32 by gusalle          ###   ########.fr       */
+/*   Updated: 2022/03/19 16:33:02 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "2048.h"
 
 static unsigned int	random_number() {
-	int	r
+	int	r;
 
 	r = rand();
 	if (r < RAND_MAX / 10)

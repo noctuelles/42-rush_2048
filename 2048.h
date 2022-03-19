@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 16:27:51 by gusalle          ###   ########.fr       */
+/*   Updated: 2022/03/19 16:33:58 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 # define BOARD_SIZE 4
 
-<<<<<<< HEAD
 # define TERM_LINES_MIN 31
 # define TERM_ROWS_MIN  84 
 
@@ -49,6 +48,8 @@ typedef struct	s_board
 	t_tile			tiles[BOARD_SIZE][BOARD_SIZE];
 	size_t			term_nlines;
 	size_t			term_nrows;
+	bool			re_draw;
+	unsigned int	free_tiles;
 }				t_board;
 
 
@@ -57,9 +58,6 @@ void	delete_board_wnd(t_board *board);
 void	draw_board(t_board *board);
 unsigned int	check_win(t_board *board);
 unsigned int	check_lose(t_board *board);
-	bool			re_draw;
-	unsigned int	free_tiles;
-}				t_board;
 
 unsigned int	check_win(t_board *board);
 unsigned int	check_lose(t_board *board);
