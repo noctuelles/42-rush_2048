@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 19:25:26 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 19:56:50 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/19 19:59:58 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	merge_up(t_board *board)
 		{
 			if (board->tiles[y][x].value != 0)
 			{
-				for (int yi = 0; yi < BOARD_SIZE; yi++)
+				for (int yi = y + 1; yi < BOARD_SIZE; yi++)
 				{
 					if (board->tiles[yi][x].value == 0)
 						continue;
@@ -47,7 +47,7 @@ void	move_up(t_board *board)
 		{
 			if (board->tiles[y][x].value == 0)
 			{
-				for (int yi = 0; yi < BOARD_SIZE; yi++)
+				for (int yi = y + 1; yi < BOARD_SIZE; yi++)
 				{
 					if (board->tiles[yi][x].value != 0)
 					{
