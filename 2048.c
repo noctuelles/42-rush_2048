@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:16 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 20:26:23 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/19 20:56:24 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,22 @@ void	init_game(t_board *board)
 	board->free_tiles = BOARD_SIZE * BOARD_SIZE;
 }
 
+bool	can_continue(t_board *board)
+{
+	if (board->won == false && check_win(board) == true)
+	{
+		if (display_winning_msg(board) == false)
+			return (false);
+		else
+		{
+			board->won = true;
+			return (board->won);
+		}
+	}
+	else if (check_lose(board) == true)
+		return (false);
+	return (true);
+}
 
 int	main(void)
 {
@@ -60,6 +76,8 @@ int	main(void)
 		new_number(&board);
 		while (1)
 		{
+			if (can_continue(&board) == false)
+				break ;
 			draw_board(&board);
 			ch = getch();
 			if (ch == KEY_RESIZE)
