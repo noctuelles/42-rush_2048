@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 19:25:26 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 19:37:42 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/19 19:56:50 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ static void	merge_up(t_board *board)
 {
 	for (int x = 0; x < BOARD_SIZE; x++)
 	{
-		for (int y = BOARD_SIZE - 1; y >= 0; y--)
+		for (int y = 0; y < BOARD_SIZE; y++)
 		{
 			if (board->tiles[y][x].value != 0)
 			{
-				for (int yi = y - 1; yi >= 0; yi--)
+				for (int yi = 0; yi < BOARD_SIZE; yi++)
 				{
 					if (board->tiles[yi][x].value == 0)
 						continue;
@@ -43,11 +43,11 @@ void	move_up(t_board *board)
 	merge_up(board);
 	for (int x = 0; x < BOARD_SIZE; x++)
 	{
-		for (int y = BOARD_SIZE - 1; y >= 0; y--)
+		for (int y = 0; y < BOARD_SIZE; y++)
 		{
 			if (board->tiles[y][x].value == 0)
 			{
-				for (int yi = y - 1; yi >= 0; yi--)
+				for (int yi = 0; yi < BOARD_SIZE; yi++)
 				{
 					if (board->tiles[yi][x].value != 0)
 					{
@@ -60,16 +60,15 @@ void	move_up(t_board *board)
 		}
 	}
 }
-
 static void	merge_down(t_board *board)
 {
 	for (int x = 0; x < BOARD_SIZE; x++)
 	{
-		for (int y = 0; y < BOARD_SIZE; y++)
+		for (int y = BOARD_SIZE - 1; y >= 0; y--)
 		{
 			if (board->tiles[y][x].value != 0)
 			{
-				for (int yi = 0; yi < BOARD_SIZE; yi++)
+				for (int yi = y - 1; yi >= 0; yi--)
 				{
 					if (board->tiles[yi][x].value == 0)
 						continue;
@@ -92,11 +91,11 @@ void	move_down(t_board *board)
 	merge_down(board);
 	for (int x = 0; x < BOARD_SIZE; x++)
 	{
-		for (int y = 0; y < BOARD_SIZE; y++)
+		for (int y = BOARD_SIZE - 1; y >= 0; y--)
 		{
 			if (board->tiles[y][x].value == 0)
 			{
-				for (int yi = 0; yi < BOARD_SIZE; yi++)
+				for (int yi = y - 1; yi >= 0; yi--)
 				{
 					if (board->tiles[yi][x].value != 0)
 					{
