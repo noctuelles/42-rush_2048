@@ -12,7 +12,7 @@ NAME = 2048
 
 HEAD = -I includes
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -MD
 
 LIB = -lncurses
 
@@ -28,10 +28,13 @@ all : $(NAME)
 
 clean :
 	rm -f $(OBJ)
+	rm -f $(OBJ:.o=.d)
 
 fclean : clean
 	rm -f $(NAME)
 
 re : fclean $(NAME)
+
+-include $(OBJ:.o=.d)
 
 .PHONY : all clean clean re

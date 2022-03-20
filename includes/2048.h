@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 14:46:17 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 14:59:05 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <time.h>
 
-# define BOARD_SIZE    4
+# define BOARD_SIZE    10
 # define KEY_ESC       27
 
 # define TILE_LINES     6
@@ -40,7 +40,7 @@
 
 enum	e_const
 {
-	WIN_VALUE = 16 
+	WIN_VALUE = 2048 
 };
 
 typedef struct	s_tile
