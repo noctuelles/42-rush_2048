@@ -6,16 +6,16 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 16:12:22 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 16:25:21 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 16:56:11 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "2048.h"
+#include <signal.h>
 
 bool	display_setup_menu(t_board *board)
 {
 	int	ch;
-	(void) board;
 
 	while (1)
 	{

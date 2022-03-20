@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 14:01:08 by gusalle           #+#    #+#             */
-/*   Updated: 2022/03/20 16:32:33 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 16:51:18 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	check_max_value(t_board *board)
 	{
 		for (int x = 0; x < board->board_size; x++)
 		{
-			if (board->tiles[y][x].value == 2048)
+			if (board->tiles[y][x].value == GAME_STOP_VALUE)
 				return (true);
 		}
 	}
