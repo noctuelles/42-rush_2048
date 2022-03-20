@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 15:26:23 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 23:29:26 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 12:39:24 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	draw_board(t_board *board)
 {
 	if (board->term_nlines < TERM_LINES_MIN || board->term_nrows < TERM_ROWS_MIN)
 		stall_mode(board);
-	mvwaddstr(stdscr, 0, 65, "2048 Game");
 	refresh();
 	box(board->wnd, ACS_VLINE, ACS_HLINE);
 	wrefresh(board->wnd);
