@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:16 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 17:08:01 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 17:52:55 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int	main(void)
 				{
 					if (can_continue(&board) == false)
 						break ;
+					getmaxyx(stdscr, board.term_nlines, board.term_nrows);
 					draw_board(&board);
 getkey:
 					ch = getch();
