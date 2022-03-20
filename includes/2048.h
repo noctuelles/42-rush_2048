@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 17:11:58 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 18:27:06 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define PAIR_STEP_3    4
 # define PAIR_STEP_4    5
 # define PAIR_STEP_5    6
+# define PAIR_STEP_6    7
 
 # define GAME_STOP_VALUE 2048
 

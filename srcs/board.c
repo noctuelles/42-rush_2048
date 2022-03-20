@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 15:26:23 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 16:27:16 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 18:24:19 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,16 +122,18 @@ void	draw_board(t_board *board)
 		{
 			if (board->tiles[y][x].value == 0)
 				set_color_pair(board, board->tiles[y][x].wnd, PAIR_DEFAULT);
-			else if (board->tiles[y][x].value == 2)
+			else if (board->tiles[y][x].value <= 4)
 				set_color_pair(board, board->tiles[y][x].wnd, PAIR_STEP_1);
-			else if (board->tiles[y][x].value <= 16)
+			else if (board->tiles[y][x].value == 8)
 				set_color_pair(board, board->tiles[y][x].wnd, PAIR_STEP_2);
-			else if (board->tiles[y][x].value <= 32)
+			else if (board->tiles[y][x].value == 16)
 				set_color_pair(board, board->tiles[y][x].wnd, PAIR_STEP_3);
-			else if (board->tiles[y][x].value <= 64)
+			else if (board->tiles[y][x].value == 32)
 				set_color_pair(board, board->tiles[y][x].wnd, PAIR_STEP_4);
-			else
+			else if (board->tiles[y][x].value == 64)
 				set_color_pair(board, board->tiles[y][x].wnd, PAIR_STEP_5);
+			else
+				set_color_pair(board, board->tiles[y][x].wnd, PAIR_STEP_6);
 			box(board->tiles[y][x].wnd, ACS_VLINE, ACS_HLINE);
 			wattroff(board->tiles[y][x].wnd, board->color_pair);
 			if (board->tiles[y][x].value != 0)
