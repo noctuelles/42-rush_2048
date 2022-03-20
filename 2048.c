@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:16 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 13:10:36 by gusalle          ###   ########.fr       */
+/*   Updated: 2022/03/20 13:47:56 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool	can_run_game(t_board *board)
 	getmaxyx(stdscr, board->term_nlines, board->term_nrows);
 	if (board->term_nlines < TERM_LINES_MIN || board->term_nrows < TERM_ROWS_MIN)
 	{
-		mvwaddstr(stdscr, 0, 0, STR_ATLEAST_SIZE);
+		mvwprintw(stdscr, 0, 0, STR_ATLEAST_SIZE, TERM_LINES_MIN, TERM_ROWS_MIN);
 		mvwaddstr(stdscr, 1, 0, STR_PRESS_KEY);
 		getch();
 		return (false);
@@ -64,6 +64,11 @@ static bool	can_continue(t_board *board)
 	else if (check_lose(board) == true)
 	{
 		display_loosing_msg();
+		return (false);
+	}
+	else if (check_max_value(board))
+	{
+		display_end_msg();
 		return (false);
 	}
 	return (true);
@@ -111,5 +116,7 @@ int	main(void)
 		}
 	}
 	delete_board_wnd(&board);
+	delwin(stdscr);
 	endwin();
+	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_win_loose.c                                  :+:      :+:    :+:   */
+/*   check_win_lose.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 14:01:08 by gusalle           #+#    #+#             */
-/*   Updated: 2022/03/20 12:49:20 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 13:31:05 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@ bool	check_win(t_board *board)
 		for (int x = 0; x < BOARD_SIZE; x++)
 		{
 			if (board->tiles[y][x].value == board->win_value)
+				return (true);
+		}
+	}
+	return (false);
+}
+
+bool	check_max_value(t_board *board)
+{
+	for (int y = 0; y < BOARD_SIZE; y++)
+	{
+		for (int x = 0; x < BOARD_SIZE; x++)
+		{
+			if (board->tiles[y][x].value == DEFAULT_WIN_VALUE)
 				return (true);
 		}
 	}

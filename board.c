@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 15:26:23 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 13:10:05 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 13:46:59 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	stall_mode(t_board *board)
 	while (board->term_nlines < TERM_LINES_MIN || board->term_nrows < TERM_ROWS_MIN)
 	{
 		clear();
-		mvwaddstr(stdscr, 0, 0, STR_ATLEAST_SIZE);
+		mvwprintw(stdscr, 0, 0, STR_ATLEAST_SIZE, TERM_LINES_MIN, TERM_ROWS_MIN);
 		mvwaddstr(stdscr, 1, 0, STR_PLEASE_RESIZE);
 		ch = getch();
 		if (ch == KEY_RESIZE)
@@ -91,8 +91,8 @@ bool	display_winning_msg(void)
 	while (true)
 	{
 		clear();
-		mvwaddstr(stdscr, 0, 0, "You won ! Do you wanna continue ?");
-		mvwaddstr(stdscr, 1, 0, "Press UP for yes and DOWN for no.");
+		mvwaddstr(stdscr, 0, 0, STR_WIN_MSG);
+		mvwaddstr(stdscr, 1, 0, STR_CHOICE);
 		ch = getch();
 		if (ch == KEY_UP)
 			return (true);
@@ -134,7 +134,17 @@ void	display_loosing_msg(void)
 	int	ch;
 
 	clear();
-	mvwaddstr(stdscr, 0, 0, "You loose ! You had no possible move.");
+	mvwaddstr(stdscr, 0, 0, STR_LOSE_MSG);
+	mvwaddstr(stdscr, 1, 0, STR_PRESS_KEY);
+	ch = getch();
+}
+
+void	display_end_msg(void)
+{
+	int	ch;
+
+	clear();
+	mvwaddstr(stdscr, 0, 0, STR_END_MSG);
 	mvwaddstr(stdscr, 1, 0, STR_PRESS_KEY);
 	ch = getch();
 }
