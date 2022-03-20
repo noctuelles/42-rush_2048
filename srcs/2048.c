@@ -6,13 +6,16 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:16 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 14:03:21 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 14:48:52 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "2048.h"
 #include <string.h>
 #include <ncurses.h>
+#include <signal.h>
+
+int g_signo;
 
 static bool	can_run_game(t_board *board)
 {
@@ -31,8 +34,16 @@ static bool	init_ncurses(void)
 {
 	if (initscr() == NULL)
 		return (false);
+	if (has_colors() == false)
+	{
+		delwin(stdscr);
+		endwin();
+		return (false);
+	}
+	start_color();
+	init_pair(1, COLOR_RED, COLOR_BLACK);
+	init_pair(2, COLOR_YELLOW, COLOR_BLACK);
 	noecho();
-	raw();
 	curs_set(0);
 	nonl();
 	cbreak();
@@ -51,6 +62,8 @@ static void	init_game(t_board *board)
 
 static bool	can_continue(t_board *board)
 {
+	if (g_signo == SIGINT)
+		return (false);
 	if (board->won == false && check_win(board) == true)
 	{
 		if (display_winning_msg() == false)
@@ -74,11 +87,19 @@ static bool	can_continue(t_board *board)
 	return (true);
 }
 
+void	catch_sigint(int signo)
+{
+	if (signo == SIGINT)
+		g_signo = SIGINT;
+}
+
 int	main(void)
 {
 	t_board			board = {0};
 	int				ch;
 
+	if (signal(SIGINT, catch_sigint) == SIG_ERR)
+		return (1);
 	srand(time(NULL));
 	init_game(&board);
 	if (init_ncurses() == false)

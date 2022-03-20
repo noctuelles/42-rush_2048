@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 15:26:23 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 13:46:59 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 14:45:44 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,14 @@ void	draw_board(t_board *board)
 {
 	if (board->term_nlines < TERM_LINES_MIN || board->term_nrows < TERM_ROWS_MIN)
 		stall_mode(board);
+
+	attron(A_UNDERLINE);
+	attron(A_BOLD);
+	mvwaddstr(stdscr, 1, BOARD_ROWS + 1, "-- 2048 Game --");
+	attroff(A_UNDERLINE);
+	attroff(A_BOLD);
+
+	mvwprintw(stdscr, 3, BOARD_ROWS + 1, "Win value : %u", board->win_value); 
 	refresh();
 	box(board->wnd, ACS_VLINE, ACS_HLINE);
 	wrefresh(board->wnd);

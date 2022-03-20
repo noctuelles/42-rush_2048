@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 13:50:31 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 14:46:17 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <time.h>
 
-# define BOARD_SIZE    5
+# define BOARD_SIZE    4
 # define KEY_ESC       27
 
 # define TILE_LINES     6
@@ -26,7 +26,7 @@
 # define BOARD_LINES    TILE_LINES * (BOARD_SIZE + 1)
 
 # define TERM_LINES_MIN (BOARD_LINES) + 1
-# define TERM_ROWS_MIN  (BOARD_ROWS) + 1
+# define TERM_ROWS_MIN  (BOARD_ROWS) + 17 + 1
 
 # define STR_ATLEAST_SIZE   "Your terminal must be at least %d lines by %d rows !"
 # define STR_PLEASE_RESIZE  "Please resize your terminal to resume game."
@@ -40,7 +40,7 @@
 
 enum	e_const
 {
-	WIN_VALUE = 32 
+	WIN_VALUE = 16 
 };
 
 typedef struct	s_tile
@@ -58,6 +58,7 @@ typedef struct	s_board
 	unsigned int	free_tiles;
 	bool			won;
 	unsigned int	win_value;
+	unsigned int	color_pair;
 }				t_board;
 
 
@@ -84,5 +85,6 @@ bool	display_winning_msg(void);
 void	display_end_msg(void);
 
 bool	is_power_of_two(int i);
+void	set_color_pair(t_board *board, WINDOW *wnd, unsigned int color_pair);
 
 #endif
