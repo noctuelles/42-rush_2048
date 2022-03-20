@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 13:46:37 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 13:50:31 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct	s_board
 	size_t			term_nrows;
 	unsigned int	free_tiles;
 	bool			won;
-	int				win_value;
+	unsigned int	win_value;
 }				t_board;
 
 

@@ -4,7 +4,7 @@ SRC = 2048.c	\
 	   move_horizontal.c	\
 	   move_vertical.c	\
 	   rand.c	\
-	   win_value.c	\
+	   game_utils.c	
 
 SRCDIR = src
 #SRC = $(addprefix $(SRCDIR)/, $(SRC))
