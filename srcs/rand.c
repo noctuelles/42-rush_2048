@@ -29,9 +29,9 @@ void	new_number(t_board *board) {
 		return ;
 	r = rand();
 	r = r / (RAND_MAX / board->free_tiles);
-	for (int y = 0; y < BOARD_SIZE; y++)
+	for (int y = 0; y < board->board_size; y++)
 	{
-		for (int x=0; x < BOARD_SIZE; x++)
+		for (int x=0; x < board->board_size; x++)
 		{
 			if (board->tiles[y][x].value == 0)
 				r--;

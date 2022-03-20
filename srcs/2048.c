@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:16 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 15:55:11 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 16:30:10 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,19 @@ static bool	can_run_game(t_board *board)
 	int	ch;
 
 	getmaxyx(stdscr, board->term_nlines, board->term_nrows);
-	if (board->term_nlines < TERM_LINES_MIN || board->term_nrows < TERM_ROWS_MIN)
+	if (board->term_nlines < board->term_nlines_min
+			|| board->term_nrows < board->term_nrows_min)
 	{
-		clear();
-		mvwprintw(stdscr, 0, 0, STR_ATLEAST_SIZE, TERM_LINES_MIN, TERM_ROWS_MIN);
-		mvwaddstr(stdscr, 1, 0, STR_PRESS_KEY);
-getkey:
-		ch = getch();
-		if (ch == KEY_RESIZE)
-			goto getkey;
-		return (false);
+		while (1)
+		{
+			clear();
+			mvwprintw(stdscr, 0, 0, STR_ATLEAST_SIZE,
+					board->term_nrows_min, board->term_nlines_min);
+			mvwaddstr(stdscr, 1, 0, STR_PRESS_KEY);
+			ch = getch();
+			if (ch != KEY_RESIZE)
+				return (false);
+		}
 	}
 	return (true);
 }
@@ -63,11 +66,11 @@ static bool	init_ncurses(void)
 
 static void	init_game(t_board *board)
 {
-	if (WIN_VALUE > 2147483647 || WIN_VALUE < 2 || is_power_of_two(WIN_VALUE) == false)
+	if (WIN_VALUE > 2147483647 || WIN_VALUE <= 2
+			|| is_power_of_two(WIN_VALUE) == false)
 		board->win_value = DEFAULT_WIN_VALUE;
 	else
 		board->win_value = WIN_VALUE;
-	board->free_tiles = BOARD_SIZE * BOARD_SIZE;
 }
 
 static bool	can_continue(t_board *board)
@@ -103,46 +106,6 @@ void	catch_sigint(int signo)
 		g_signo = SIGINT;
 }
 
-void	compute_size(t_board *board, size_t board_size)
-{
-	board->board_nrows = TILE_ROWS * (board_size + 1);
-	board->board_nlines = TILE_LINES * (board_size + 1);
-	board->term_nlines_min = board->board_nlines + 1;
-	board->term_nrows_min = board->board_nrows + 17 + 1;
-}
-
-bool	setup_menu(t_board *board)
-{
-	int	ch;
-	(void) board;
-
-	while (1)
-	{
-		clear();
-		attron(A_UNDERLINE);
-		attron(A_BOLD);
-		mvwaddstr(stdscr, 0, 7, "-- 2048 Game --");
-		attroff(A_BOLD);
-		attroff(A_UNDERLINE);
-		attron(A_REVERSE);
-		mvwaddstr(stdscr, 2, 0, "1. Press UP to launch a 4x4 grid.");
-		mvwaddstr(stdscr, 4, 0, "2. Press DOWN to launch a 5x5 grid.");
-		attroff(A_REVERSE);
-		mvwaddstr(stdscr, 6, 0, "3. Press ESC to exit the game.");
-		ch = getch();
-		if (ch == KEY_UP)
-		{
-			return (true);
-		}
-		else if (ch == KEY_DOWN)
-		{
-			return (true);
-		}
-		else if (ch == KEY_ESC)
-			return (false);
-	}
-}
-
 int	main(void)
 {
 	t_board			board = {0};
@@ -154,7 +117,7 @@ int	main(void)
 	init_game(&board);
 	if (init_ncurses() == false)
 		return (1);
-	if (setup_menu(&board) == true)
+	if (display_setup_menu(&board) == true)
 	{
 		if (can_run_game(&board) == true)
 		{

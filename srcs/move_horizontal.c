@@ -14,13 +14,13 @@
 
 static void	merge_left(t_board *board)
 {
-	for (int y = 0; y < BOARD_SIZE; y++)
+	for (int y = 0; y < board->board_size; y++)
 	{
-		for (int x = 0; x < BOARD_SIZE; x++)
+		for (int x = 0; x < board->board_size; x++)
 		{
 			if (board->tiles[y][x].value != 0)
 			{
-				for (int xi = x + 1; xi < BOARD_SIZE; xi++)
+				for (int xi = x + 1; xi < board->board_size; xi++)
 				{
 					if (board->tiles[y][xi].value == 0)
 						continue;
@@ -42,13 +42,13 @@ static void	merge_left(t_board *board)
 void	move_left(t_board *board)
 {
 	merge_left(board);
-	for (int y = 0; y < BOARD_SIZE; y++)
+	for (int y = 0; y < board->board_size; y++)
 	{
-		for (int x = 0; x < BOARD_SIZE; x++)
+		for (int x = 0; x < board->board_size; x++)
 		{
 			if (board->tiles[y][x].value == 0)
 			{
-				for (int xi = x + 1; xi < BOARD_SIZE; xi++)
+				for (int xi = x + 1; xi < board->board_size; xi++)
 				{
 					if (board->tiles[y][xi].value != 0)
 					{
@@ -64,9 +64,9 @@ void	move_left(t_board *board)
 
 static void	merge_right(t_board *board)
 {
-	for (int y = 0; y < BOARD_SIZE; y++)
+	for (int y = 0; y < board->board_size; y++)
 	{
-		for (int x = BOARD_SIZE - 1; x >= 0; x--)
+		for (int x = board->board_size - 1; x >= 0; x--)
 		{
 			if (board->tiles[y][x].value != 0)
 			{
@@ -92,9 +92,9 @@ static void	merge_right(t_board *board)
 void	move_right(t_board *board)
 {
 	merge_right(board);
-	for (int y = 0; y < BOARD_SIZE; y++)
+	for (int y = 0; y < board->board_size; y++)
 	{
-		for (int x = BOARD_SIZE - 1; x >= 0; x--)
+		for (int x = board->board_size - 1; x >= 0; x--)
 		{
 			if (board->tiles[y][x].value == 0)
 			{

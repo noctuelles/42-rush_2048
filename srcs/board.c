@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 15:26:23 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 15:46:17 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 16:27:16 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 WINDOW	*init_board_wnd(t_board *board)
 {
-	board->wnd = newwin(BOARD_LINES,
-			BOARD_ROWS,
+	board->wnd = newwin(board->board_nlines,
+			board->board_nrows,
 			0,
 			0);
 	if (board->wnd == NULL)
 		return (NULL);
-	for (int y = 0; y < BOARD_SIZE; y++)
+	for (int y = 0; y < board->board_size; y++)
 	{
-		for (int x = 0; x < BOARD_SIZE; x++)
+		for (int x = 0; x < board->board_size; x++)
 		{
 			board->tiles[y][x].wnd = subwin(board->wnd,
 					TILE_LINES,
@@ -41,9 +41,9 @@ WINDOW	*init_board_wnd(t_board *board)
 
 void	delete_board_wnd(t_board *board)
 {
-	for (int y = 0; y < BOARD_SIZE; y++)
+	for (int y = 0; y < board->board_size; y++)
 	{
-		for (int x = 0; x < BOARD_SIZE; x++)
+		for (int x = 0; x < board->board_size; x++)
 		{
 			if (board->tiles[y][x].wnd != NULL)
 			{
@@ -58,9 +58,9 @@ void	delete_board_wnd(t_board *board)
 
 void	wipe_tiles(t_board *board)
 {
-	for (int y = 0; y < BOARD_SIZE; y++)
+	for (int y = 0; y < board->board_size; y++)
 	{
-		for (int x=0; x < BOARD_SIZE; x++)
+		for (int x=0; x < board->board_size; x++)
 		{
 			wclear(board->tiles[y][x].wnd);
 		}
@@ -72,10 +72,12 @@ static void	stall_mode(t_board *board)
 	int	ch;
 
 	delete_board_wnd(board);
-	while (board->term_nlines < TERM_LINES_MIN || board->term_nrows < TERM_ROWS_MIN)
+	while (board->term_nlines < board->term_nlines_min
+			|| board->term_nrows < board->term_nrows_min)
 	{
 		clear();
-		mvwprintw(stdscr, 0, 0, STR_ATLEAST_SIZE, TERM_LINES_MIN, TERM_ROWS_MIN);
+		mvwprintw(stdscr, 0, 0, STR_ATLEAST_SIZE, board->term_nrows_min,
+				board->term_nlines_min);
 		mvwaddstr(stdscr, 1, 0, STR_PLEASE_RESIZE);
 		ch = getch();
 		if (ch == KEY_RESIZE)
@@ -87,49 +89,36 @@ static void	stall_mode(t_board *board)
 			exit_curses(0);
 		}
 	}
-	init_board_wnd(board);
-}
-
-bool	display_winning_msg(void)
-{
-	int	ch;
-
-	while (true)
+	if (init_board_wnd(board) == NULL)
 	{
-		clear();
-		mvwaddstr(stdscr, 0, 0, STR_WIN_MSG);
-		mvwaddstr(stdscr, 1, 0, STR_CHOICE);
-		ch = getch();
-		if (ch == KEY_UP)
-			return (true);
-		else if (ch == KEY_DOWN)
-			return (false);
-		else if (ch == KEY_ESC)
-			return (false);
+		delwin(stdscr);
+		endwin();
+		exit_curses(0);
 	}
 }
 
 void	draw_board(t_board *board)
 {
-	if (board->term_nlines < TERM_LINES_MIN || board->term_nrows < TERM_ROWS_MIN)
+	if (board->term_nlines < board->term_nlines_min
+			|| board->term_nrows < board->term_nrows_min)
 		stall_mode(board);
 
 	attron(A_UNDERLINE);
 	attron(A_BOLD);
-	mvwaddstr(stdscr, 1, BOARD_ROWS + 3, "-- 2048 Game --");
+	mvwaddstr(stdscr, 1, board->board_nrows + 3, "-- 2048 Game --");
 	attroff(A_BOLD);
-	mvwaddstr(stdscr, 3, BOARD_ROWS + 2, "plouvel & gusalle"); 
+	mvwaddstr(stdscr, 3, board->board_nrows + 2, "plouvel & gusalle"); 
 	attroff(A_UNDERLINE);
 
-	mvwprintw(stdscr, 5, BOARD_ROWS + 2, "Win value : %u", board->win_value); 
+	mvwprintw(stdscr, 5, board->board_nrows + 2, "Win value : %u", board->win_value); 
 	refresh();
 	wattron(board->wnd, A_REVERSE);
 	box(board->wnd, ACS_VLINE, ACS_HLINE);
 	wattroff(board->wnd, A_REVERSE);
 	wrefresh(board->wnd);
-	for (int y = 0; y < BOARD_SIZE; y++)
+	for (int y = 0; y < board->board_size; y++)
 	{
-		for (int x = 0; x < BOARD_SIZE; x++)
+		for (int x = 0; x < board->board_size; x++)
 		{
 			if (board->tiles[y][x].value == 0)
 				set_color_pair(board, board->tiles[y][x].wnd, PAIR_DEFAULT);
@@ -157,30 +146,4 @@ void	draw_board(t_board *board)
 			wrefresh(board->tiles[y][x].wnd);
 		}
 	}
-}
-
-void	display_loosing_msg(void)
-{
-	int	ch;
-
-	clear();
-	mvwaddstr(stdscr, 0, 0, STR_LOSE_MSG);
-	mvwaddstr(stdscr, 1, 0, STR_PRESS_KEY);
-getkey:
-	ch = getch();
-	if (ch == KEY_RESIZE)
-		goto getkey;
-}
-
-void	display_end_msg(void)
-{
-	int	ch;
-
-	clear();
-	mvwaddstr(stdscr, 0, 0, STR_END_MSG);
-	mvwaddstr(stdscr, 1, 0, STR_PRESS_KEY);
-getkey:
-	ch = getch();
-	if (ch == KEY_RESIZE)
-		goto getkey;
 }

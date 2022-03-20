@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 15:52:27 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 16:32:47 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,10 @@
 # include <stdlib.h>
 # include <time.h>
 
-# define BOARD_SIZE    4 
 # define KEY_ESC       27
 
 # define TILE_LINES     6
 # define TILE_ROWS      12
-# define BOARD_ROWS     TILE_ROWS * (BOARD_SIZE + 1)
-# define BOARD_LINES    TILE_LINES * (BOARD_SIZE + 1)
-
-# define TERM_LINES_MIN (BOARD_LINES) + 1
-# define TERM_ROWS_MIN  (BOARD_ROWS) + 17 + 1
 
 # define STR_ATLEAST_SIZE   "Your terminal must be at least %d lines by %d rows !"
 # define STR_PLEASE_RESIZE  "Please resize your terminal to resume game."
@@ -35,6 +29,11 @@
 # define STR_END_MSG        "You've reached 2048, the game ends here..."
 # define STR_CHOICE         "Press UP for yes and DOWN for no."
 # define STR_PRESS_KEY      "Press any key to exit..."
+
+# define STR_GAME_TITLE     "-- 2048 Game --"
+# define STR_SETUP_CHOICE_1 "1. Press UP to launch a 4x4 grid."
+# define STR_SETUP_CHOICE_2 "2. Press DOWN to launch a 5x5 grid."
+# define STR_SETUP_CHOICE_3 "3. Press ESC to exit the game."
 
 # define PAIR_DEFAULT 1
 # define PAIR_STEP_1  2
@@ -47,7 +46,7 @@
 
 enum	e_const
 {
-	WIN_VALUE = 2048 
+	WIN_VALUE = 5 
 };
 
 typedef struct	s_tile
@@ -59,13 +58,14 @@ typedef struct	s_tile
 typedef struct	s_board
 {
 	WINDOW			*wnd;
-	t_tile			tiles[BOARD_SIZE][BOARD_SIZE];
+	t_tile			tiles[5][5];
 	size_t			term_nlines;
 	size_t			term_nlines_min;
 	size_t			term_nrows;
 	size_t			term_nrows_min;
 	size_t			board_nlines;
 	size_t			board_nrows;
+	int				board_size;
 	unsigned int	free_tiles;
 	bool			won;
 	unsigned int	win_value;
@@ -81,8 +81,8 @@ bool	check_win(t_board *board);
 bool	check_lose(t_board *board);
 bool	check_max_value(t_board *board);
 
-void			new_number(t_board *board);
-void			move_and_merge(t_board *board, char *input);
+void	new_number(t_board *board);
+void	move_and_merge(t_board *board, char *input);
 
 void	move_right(t_board *board);
 void	move_left(t_board *board);
@@ -91,11 +91,14 @@ void	move_down(t_board *board);
 
 void	wipe_tiles(t_board *board);
 
+bool	display_setup_menu(t_board *board);
 void	display_loosing_msg(void);
 bool	display_winning_msg(void);
 void	display_end_msg(void);
 
 bool	is_power_of_two(int i);
 void	set_color_pair(t_board *board, WINDOW *wnd, unsigned int color_pair);
+
+void	compute_size(t_board *board, int board_size);
 
 #endif
