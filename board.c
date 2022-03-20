@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 15:26:23 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 12:39:24 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 13:03:37 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	stall_mode(t_board *board)
 	init_board_wnd(board);
 }
 
-bool	display_winning_msg(t_board *board)
+bool	display_winning_msg(void)
 {
 	int	ch;
 
@@ -114,7 +114,7 @@ void	draw_board(t_board *board)
 	}
 }
 
-void	display_loosing_msg(t_board *board)
+void	display_loosing_msg(void)
 {
 	int	ch;
 

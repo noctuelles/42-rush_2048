@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 12:50:03 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 13:04:31 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	move_down(t_board *board);
 
 void	wipe_tiles(t_board *board);
 
-void	display_loosing_msg(t_board *board);
-bool	display_winning_msg(t_board *board);
+void	display_loosing_msg(void);
+bool	display_winning_msg(void);
 
 bool	is_power_of_two(int i);
 
