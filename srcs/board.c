@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 15:26:23 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 14:45:44 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 15:46:17 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,12 @@ static void	stall_mode(t_board *board)
 		ch = getch();
 		if (ch == KEY_RESIZE)
 			getmaxyx(stdscr, board->term_nlines, board->term_nrows);
+		else if (ch == KEY_ESC)
+		{
+			delwin(stdscr);
+			endwin();
+			exit_curses(0);
+		}
 	}
 	init_board_wnd(board);
 }
@@ -110,19 +116,35 @@ void	draw_board(t_board *board)
 
 	attron(A_UNDERLINE);
 	attron(A_BOLD);
-	mvwaddstr(stdscr, 1, BOARD_ROWS + 1, "-- 2048 Game --");
-	attroff(A_UNDERLINE);
+	mvwaddstr(stdscr, 1, BOARD_ROWS + 3, "-- 2048 Game --");
 	attroff(A_BOLD);
+	mvwaddstr(stdscr, 3, BOARD_ROWS + 2, "plouvel & gusalle"); 
+	attroff(A_UNDERLINE);
 
-	mvwprintw(stdscr, 3, BOARD_ROWS + 1, "Win value : %u", board->win_value); 
+	mvwprintw(stdscr, 5, BOARD_ROWS + 2, "Win value : %u", board->win_value); 
 	refresh();
+	wattron(board->wnd, A_REVERSE);
 	box(board->wnd, ACS_VLINE, ACS_HLINE);
+	wattroff(board->wnd, A_REVERSE);
 	wrefresh(board->wnd);
 	for (int y = 0; y < BOARD_SIZE; y++)
 	{
 		for (int x = 0; x < BOARD_SIZE; x++)
 		{
+			if (board->tiles[y][x].value == 0)
+				set_color_pair(board, board->tiles[y][x].wnd, PAIR_DEFAULT);
+			else if (board->tiles[y][x].value == 2)
+				set_color_pair(board, board->tiles[y][x].wnd, PAIR_STEP_1);
+			else if (board->tiles[y][x].value <= 16)
+				set_color_pair(board, board->tiles[y][x].wnd, PAIR_STEP_2);
+			else if (board->tiles[y][x].value <= 32)
+				set_color_pair(board, board->tiles[y][x].wnd, PAIR_STEP_3);
+			else if (board->tiles[y][x].value <= 64)
+				set_color_pair(board, board->tiles[y][x].wnd, PAIR_STEP_4);
+			else
+				set_color_pair(board, board->tiles[y][x].wnd, PAIR_STEP_5);
 			box(board->tiles[y][x].wnd, ACS_VLINE, ACS_HLINE);
+			wattroff(board->tiles[y][x].wnd, board->color_pair);
 			if (board->tiles[y][x].value != 0)
 			{
 				mvwprintw(board->tiles[y][x].wnd,
@@ -144,7 +166,10 @@ void	display_loosing_msg(void)
 	clear();
 	mvwaddstr(stdscr, 0, 0, STR_LOSE_MSG);
 	mvwaddstr(stdscr, 1, 0, STR_PRESS_KEY);
+getkey:
 	ch = getch();
+	if (ch == KEY_RESIZE)
+		goto getkey;
 }
 
 void	display_end_msg(void)
@@ -154,5 +179,8 @@ void	display_end_msg(void)
 	clear();
 	mvwaddstr(stdscr, 0, 0, STR_END_MSG);
 	mvwaddstr(stdscr, 1, 0, STR_PRESS_KEY);
+getkey:
 	ch = getch();
+	if (ch == KEY_RESIZE)
+		goto getkey;
 }

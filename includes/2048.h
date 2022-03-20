@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:53 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 14:59:05 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 15:52:27 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <time.h>
 
-# define BOARD_SIZE    10
+# define BOARD_SIZE    4 
 # define KEY_ESC       27
 
 # define TILE_LINES     6
@@ -35,6 +35,13 @@
 # define STR_END_MSG        "You've reached 2048, the game ends here..."
 # define STR_CHOICE         "Press UP for yes and DOWN for no."
 # define STR_PRESS_KEY      "Press any key to exit..."
+
+# define PAIR_DEFAULT 1
+# define PAIR_STEP_1  2
+# define PAIR_STEP_2  3
+# define PAIR_STEP_3  4
+# define PAIR_STEP_4  5
+# define PAIR_STEP_5  6
 
 # define DEFAULT_WIN_VALUE 2048
 
@@ -54,7 +61,11 @@ typedef struct	s_board
 	WINDOW			*wnd;
 	t_tile			tiles[BOARD_SIZE][BOARD_SIZE];
 	size_t			term_nlines;
+	size_t			term_nlines_min;
 	size_t			term_nrows;
+	size_t			term_nrows_min;
+	size_t			board_nlines;
+	size_t			board_nrows;
 	unsigned int	free_tiles;
 	bool			won;
 	unsigned int	win_value;

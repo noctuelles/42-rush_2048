@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:16 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 14:48:52 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 15:55:11 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,18 @@ int g_signo;
 
 static bool	can_run_game(t_board *board)
 {
+	int	ch;
+
 	getmaxyx(stdscr, board->term_nlines, board->term_nrows);
 	if (board->term_nlines < TERM_LINES_MIN || board->term_nrows < TERM_ROWS_MIN)
 	{
+		clear();
 		mvwprintw(stdscr, 0, 0, STR_ATLEAST_SIZE, TERM_LINES_MIN, TERM_ROWS_MIN);
 		mvwaddstr(stdscr, 1, 0, STR_PRESS_KEY);
-		getch();
+getkey:
+		ch = getch();
+		if (ch == KEY_RESIZE)
+			goto getkey;
 		return (false);
 	}
 	return (true);
@@ -41,8 +47,12 @@ static bool	init_ncurses(void)
 		return (false);
 	}
 	start_color();
-	init_pair(1, COLOR_RED, COLOR_BLACK);
-	init_pair(2, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(PAIR_DEFAULT, COLOR_WHITE, COLOR_BLACK);
+	init_pair(PAIR_STEP_1, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(PAIR_STEP_2, COLOR_BLUE, COLOR_BLACK);
+	init_pair(PAIR_STEP_3, COLOR_CYAN, COLOR_BLACK);
+	init_pair(PAIR_STEP_4, COLOR_MAGENTA, COLOR_BLACK);
+	init_pair(PAIR_STEP_5, COLOR_RED, COLOR_BLACK);
 	noecho();
 	curs_set(0);
 	nonl();
@@ -93,6 +103,46 @@ void	catch_sigint(int signo)
 		g_signo = SIGINT;
 }
 
+void	compute_size(t_board *board, size_t board_size)
+{
+	board->board_nrows = TILE_ROWS * (board_size + 1);
+	board->board_nlines = TILE_LINES * (board_size + 1);
+	board->term_nlines_min = board->board_nlines + 1;
+	board->term_nrows_min = board->board_nrows + 17 + 1;
+}
+
+bool	setup_menu(t_board *board)
+{
+	int	ch;
+	(void) board;
+
+	while (1)
+	{
+		clear();
+		attron(A_UNDERLINE);
+		attron(A_BOLD);
+		mvwaddstr(stdscr, 0, 7, "-- 2048 Game --");
+		attroff(A_BOLD);
+		attroff(A_UNDERLINE);
+		attron(A_REVERSE);
+		mvwaddstr(stdscr, 2, 0, "1. Press UP to launch a 4x4 grid.");
+		mvwaddstr(stdscr, 4, 0, "2. Press DOWN to launch a 5x5 grid.");
+		attroff(A_REVERSE);
+		mvwaddstr(stdscr, 6, 0, "3. Press ESC to exit the game.");
+		ch = getch();
+		if (ch == KEY_UP)
+		{
+			return (true);
+		}
+		else if (ch == KEY_DOWN)
+		{
+			return (true);
+		}
+		else if (ch == KEY_ESC)
+			return (false);
+	}
+}
+
 int	main(void)
 {
 	t_board			board = {0};
@@ -104,37 +154,40 @@ int	main(void)
 	init_game(&board);
 	if (init_ncurses() == false)
 		return (1);
-	if (can_run_game(&board) == true)
+	if (setup_menu(&board) == true)
 	{
-		if (init_board_wnd(&board) != NULL)
+		if (can_run_game(&board) == true)
 		{
-			new_number(&board);
-			new_number(&board);
-			while (true)
+			if (init_board_wnd(&board) != NULL)
 			{
-				if (can_continue(&board) == false)
-					break ;
-				draw_board(&board);
-getkey:
-				ch = getch();
-				if (ch == KEY_RESIZE)
-					getmaxyx(stdscr, board.term_nlines, board.term_nrows);
-				else if (ch == KEY_ESC)
-					break ;
-				else
+				new_number(&board);
+				new_number(&board);
+				while (true)
 				{
-					if (ch == KEY_LEFT)
-						move_left(&board);
-					else if (ch == KEY_RIGHT)
-						move_right(&board);
-					else if (ch == KEY_UP)
-						move_up(&board);
-					else if (ch == KEY_DOWN)
-						move_down(&board);
+					if (can_continue(&board) == false)
+						break ;
+					draw_board(&board);
+getkey:
+					ch = getch();
+					if (ch == KEY_RESIZE)
+						getmaxyx(stdscr, board.term_nlines, board.term_nrows);
+					else if (ch == KEY_ESC)
+						break ;
 					else
-						goto getkey;
-					new_number(&board);
-					wipe_tiles(&board);
+					{
+						if (ch == KEY_LEFT)
+							move_left(&board);
+						else if (ch == KEY_RIGHT)
+							move_right(&board);
+						else if (ch == KEY_UP)
+							move_up(&board);
+						else if (ch == KEY_DOWN)
+							move_down(&board);
+						else
+							goto getkey;
+						new_number(&board);
+						wipe_tiles(&board);
+					}
 				}
 			}
 		}
