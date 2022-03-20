@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:16 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 16:56:47 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 17:08:01 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,12 @@ static bool	can_continue(t_board *board)
 {
 	if (board->won == false && check_win(board) == true)
 	{
+		if (check_max_value(board) == true)
+		{
+			display_winning_msg();
+			display_end_msg();
+			return (false);
+		}
 		if (display_winning_msg() == false)
 			return (false);
 		else
