@@ -1,20 +1,16 @@
-SRC = 2048.c	\
-	   board.c	\
-	   check_win_lose.c	\
-	   move_horizontal.c	\
-	   move_vertical.c	\
-	   rand.c	\
-	   game_utils.c	
-
-SRCDIR = src
-#SRC = $(addprefix $(SRCDIR)/, $(SRC))
+SRC =  srcs/2048.c	\
+	   srcs/board.c	\
+	   srcs/check_win_lose.c	\
+	   srcs/move_horizontal.c	\
+	   srcs/move_vertical.c	\
+	   srcs/rand.c	\
+	   srcs/game_utils.c	
 
 OBJ = $(SRC:.c=.o)
 
-
 NAME = 2048
 
-HEAD = -I ./includes
+HEAD = -I includes
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -23,12 +19,13 @@ LIB = -lncurses
 CC = cc
 
 $(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(HEAD) $(LIB) -o $(NAME)
+	$(CC) $(CFLAGS) $(HEAD) $(OBJ) $(LIB) -o $(NAME)
 
 all : $(NAME)
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) $(HEAD) -c $< -o $@
+
 clean :
 	rm -f $(OBJ)
 
