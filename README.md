@@ -1,5 +1,13 @@
 # 42-rush_2048
 
+[![42](https://img.shields.io/badge/42-common_core-green.svg)](https://shields.io/)
+[![Vim](https://img.shields.io/badge/--019733?logo=vim)](https://www.vim.org/)
+[![42](https://img.shields.io/badge/Made%20in%20-C-blue.svg)](https://shields.io/)
+[![42](https://img.shields.io/badge/Made%20with%20-GNU%20Make-red.svg)](https://shields.io/)
+
+[![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org)
+[![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://GitHub.com/Naereen/ama)
+
 This rush was about making a 2048 clone in a terminal, using ncurses library.
 
 ![Game](assets/game.png)
