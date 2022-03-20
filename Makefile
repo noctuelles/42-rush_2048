@@ -1,4 +1,4 @@
-SRCS = 2048.c	\
+SRC = 2048.c	\
 	   board.c	\
 	   check_win_lose.c	\
 	   move_horizontal.c	\
@@ -6,7 +6,11 @@ SRCS = 2048.c	\
 	   rand.c	\
 	   win_value.c	\
 
-OBJS = {SRCS:.c=.o}
+SRCDIR = src
+SRC = $(addprefix $(SRCDIR)/, $(SRC))
+
+OBJ = $(SRC:.c=.o)
+
 
 NAME = 2048
 
@@ -20,17 +24,17 @@ CC = cc
 
 $(NAME) :
 	make -C ./Libft
-	$(CC) $(CFLAGS) $(OBJS) $(HEAD) $(LIB) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(HEAD) $(LIB) -o $(NAME)
 
 all : $(NAME)
 
 clean :
 	make clean -C ./Libft
-	rm -f $(OBJS)
+	rm -f $(OBJ)
 
 fclean :
 	make fclean -C ./Libft
-	rm -f $(OBJS)
+	rm -f $(OBJ)
 	rm -f $(NAME)
 
 re : fclean $(NAME)
