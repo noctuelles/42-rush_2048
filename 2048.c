@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:16 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/19 23:25:47 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 12:48:29 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static bool	init_ncurses(void)
 
 static void	init_game(t_board *board)
 {
-	if (WIN_VALUE < 2 || is_power_of_two(WIN_VALUE) == false)
+	if (WIN_VALUE > 2147483647 || WIN_VALUE < 2 || is_power_of_two(WIN_VALUE) == false)
 		board->win_value = DEFAULT_WIN_VALUE;
 	else
 		board->win_value = WIN_VALUE;
