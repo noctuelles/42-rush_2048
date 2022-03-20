@@ -4,7 +4,8 @@ SRC =  srcs/2048.c	\
 	   srcs/move_horizontal.c	\
 	   srcs/move_vertical.c	\
 	   srcs/rand.c	\
-	   srcs/game_utils.c	
+	   srcs/game_utils.c	\
+	   srcs/display.c
 
 OBJ = $(SRC:.c=.o)
 
