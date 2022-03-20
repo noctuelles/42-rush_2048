@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:16 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 12:48:29 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 13:03:15 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,31 +80,33 @@ int	main(void)
 		return (1);
 	if (can_run_game(&board) == true)
 	{
-		init_board_wnd(&board);
-		new_number(&board);
-		new_number(&board);
-		while (1)
+		if (init_board_wnd(&board) != NULL)
 		{
-			if (can_continue(&board) == false)
-				break ;
-			draw_board(&board);
-			ch = getch();
-			if (ch == KEY_RESIZE)
-				getmaxyx(stdscr, board.term_nlines, board.term_nrows);
-			else if (ch == KEY_ESC)
-				break ;
-			else
+			new_number(&board);
+			new_number(&board);
+			while (1)
 			{
-				if (ch == KEY_LEFT)
-					move_left(&board);
-				else if (ch == KEY_RIGHT)
-					move_right(&board);
-				else if (ch == KEY_UP)
-					move_up(&board);
-				else if (ch == KEY_DOWN)
-					move_down(&board);
-				new_number(&board);
-				wipe_tiles(&board);
+				if (can_continue(&board) == false)
+					break ;
+				draw_board(&board);
+				ch = getch();
+				if (ch == KEY_RESIZE)
+					getmaxyx(stdscr, board.term_nlines, board.term_nrows);
+				else if (ch == KEY_ESC)
+					break ;
+				else
+				{
+					if (ch == KEY_LEFT)
+						move_left(&board);
+					else if (ch == KEY_RIGHT)
+						move_right(&board);
+					else if (ch == KEY_UP)
+						move_up(&board);
+					else if (ch == KEY_DOWN)
+						move_down(&board);
+					new_number(&board);
+					wipe_tiles(&board);
+				}
 			}
 		}
 	}

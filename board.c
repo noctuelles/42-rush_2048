@@ -6,18 +6,20 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 15:26:23 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 12:39:24 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 13:01:43 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "2048.h"
 
-void	init_board_wnd(t_board *board)
+WINDOW	*init_board_wnd(t_board *board)
 {
 	board->wnd = newwin(BOARD_LINES,
 			BOARD_ROWS,
 			0,
 			0);
+	if (board->wnd == NULL)
+		return (NULL);
 	for (int y = 0; y < BOARD_SIZE; y++)
 	{
 		for (int x = 0; x < BOARD_SIZE; x++)
@@ -27,8 +29,11 @@ void	init_board_wnd(t_board *board)
 					TILE_ROWS,
 					3 + y * TILE_LINES,
 					6 + x * TILE_ROWS);
+			if (board->tiles[y][x].wnd == NULL)
+				return (NULL);
 		}
 	}
+	return (board->wnd);
 }
 
 void	delete_board_wnd(t_board *board)
