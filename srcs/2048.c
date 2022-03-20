@@ -6,7 +6,7 @@
 /*   By: plouvel <plouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:16:16 by plouvel           #+#    #+#             */
-/*   Updated: 2022/03/20 14:01:49 by plouvel          ###   ########.fr       */
+/*   Updated: 2022/03/20 14:03:21 by plouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ getkey:
 					else if (ch == KEY_DOWN)
 						move_down(&board);
 					else
-						goto (getkey);
+						goto getkey;
 					new_number(&board);
 					wipe_tiles(&board);
 				}
