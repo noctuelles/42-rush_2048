@@ -7,7 +7,7 @@ SRC = 2048.c	\
 	   win_value.c	\
 
 SRCDIR = src
-SRC = $(addprefix $(SRCDIR)/, $(SRC))
+#SRC = $(addprefix $(SRCDIR)/, $(SRC))
 
 OBJ = $(SRC:.c=.o)
 
@@ -22,19 +22,17 @@ LIB = -lncurses
 
 CC = cc
 
-$(NAME) :
-	make -C ./Libft
+$(NAME) : $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(HEAD) $(LIB) -o $(NAME)
 
 all : $(NAME)
 
+%.o : %.c
+	$(CC) $(CFLAGS) -c $<
 clean :
-	make clean -C ./Libft
 	rm -f $(OBJ)
 
-fclean :
-	make fclean -C ./Libft
-	rm -f $(OBJ)
+fclean : clean
 	rm -f $(NAME)
 
 re : fclean $(NAME)
